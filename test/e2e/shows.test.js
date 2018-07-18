@@ -7,7 +7,7 @@ describe('TV Shows API', () => {
     let westworldShow;
     let utopiaShow;
     let gameOfThronesShow;
-    
+
     const westworld = {
         name: 'Westworld',
         firstAired: '2016',
@@ -80,7 +80,7 @@ describe('TV Shows API', () => {
 
     it('removes a show by ID', () => {
         return request
-            .del(`/api/shows/${westworldShow._id}`)
+            .delete(`/api/shows/${westworldShow._id}`)
             .then(({ body }) => {
                 assert.deepEqual(body, { removed: true });
                 return request.get('/api/shows');
@@ -95,7 +95,7 @@ describe('TV Shows API', () => {
 
     it('returns false when attempting to remove non-existent show', () => {
         return request
-            .del('/api/shows/5b4f8461ac58b3b0ad992dad')
+            .delete('/api/shows/5b4f8461ac58b3b0ad992dad')
             .then(({ body }) => {
                 assert.deepEqual(body, { removed: false });
             });
