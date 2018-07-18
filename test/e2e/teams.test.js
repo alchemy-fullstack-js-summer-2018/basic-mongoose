@@ -55,24 +55,18 @@ describe('Teams API', () => {
         assert.ok(team._id);
     });
 
-    // it('deletes a team', () => {
-    //     return request
-    //         .delete(`/api/teams/${team._id}`)
-    //         // .then(res => {
-    //         //     assert.equal(res.status, 200);
-    //         // })
-    //         .then(() => {
-    //             return request.get(`/api/teams/${team._id}`);
-    //         })
-    //         // .then(() => {
-    //         //     return request.get('/api/teams');
-    //         // })
-    //         .then(({ body }) => {
-    //             assert.deepEqual(body, []);
-    //         });
-
-    //         // .then(res => {
-    //         //     assert.equal(res.status, 404);
-    //         // });
-    // });
+    it('deletes a team', () => {
+        return request
+            .delete(`/api/teams/${team._id}`)
+            
+            .then(() => {
+                return request.get(`/api/teams/${team._id}`);
+            })
+            .then(() => {
+                return request.get('/api/teams');
+            })
+            .then(({ body }) => {
+                assert.deepEqual(body, []);
+            });
+    });
 }); 
