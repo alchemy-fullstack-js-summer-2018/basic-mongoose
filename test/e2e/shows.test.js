@@ -77,4 +77,19 @@ describe('TV Shows API', () => {
                 assert.deepEqual(body.networkType, utopiaShow.networkType);
             });
     });
+
+    it('removes a show by ID', () => {
+        return request
+            .del(`/api/shows/${westworldShow._id}`)
+            .then(({ body }) => {
+                assert.deepEqual(body, { removed: true });
+                return request.get('/api/shows');
+            })
+            .then(({ body }) => {
+                assert.equal(body[0].name, utopiaShow.name);
+                assert.equal(body[1].name, gameOfThronesShow.name);
+                assert.equal(body[0].firstAired, utopiaShow.firstAired);
+                assert.equal(body[1].firstAired, gameOfThronesShow.firstAired);
+            });
+    });
 });
