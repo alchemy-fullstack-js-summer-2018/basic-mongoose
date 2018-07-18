@@ -59,4 +59,12 @@ describe('TV Shows API', () => {
                 assert.equal(body[2].firstAired, gameOfThronesShow.firstAired);
             });
     });
+
+    it('gets a show by ID', () => {
+        return request
+            .get(`/api/shows/${utopiaShow._id}`)
+            .then(({ body }) => {
+                assert.deepEqual(body.firstAired, utopiaShow.firstAired);
+            });
+    });
 });
