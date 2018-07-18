@@ -18,7 +18,27 @@ describe('Hiker Model', () => {
             milesHiked: 7900,
             tripleCrown: true
         };
+
+        const hiker = new Hiker(data);
+
+        const json = hiker.toJSON();
+        delete json._id;
+        assert.deepEqual(json, data);
+        assert.isUndefined(hiker.validateSync());
     });
+
+    it('validates required fields', () => {
+        const hiker = new Hiker({});
+        const errors = getErrors(hiker.validateSync(), 2);
+        assert.equal(errors.trailName.kind, 'required');
+        assert.equal(errors.longTrail.kind, 'required');
+    });
+
+    it('names the long trails hiked', () => {
+        
+    });
+
+
 
     
 
