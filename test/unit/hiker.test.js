@@ -34,8 +34,18 @@ describe('Hiker Model', () => {
         assert.equal(errors.longTrail.kind, 'required');
     });
 
-    it('names the long trails hiked', () => {
+    it('validates long trails hiked', () => {
+        const hiker = new Hiker({
+            trailName: 'Wired',
+            longTrail: 'PNT',
+            milesHiked: 7900,
+            tripleCrown: true
+        });
         
+        const errors = getErrors(hiker.validateSync(), 1);
+        assert.equal(Object.keys(errors).length, 1);
+        assert.equal(errors.longTrail.kind, 'enum');
+
     });
 
 
