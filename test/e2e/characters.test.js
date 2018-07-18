@@ -27,4 +27,12 @@ describe('Companies API', () => {
     it('saves a character', () => {
         assert.isOk(character._id);
     });
+
+    it('gets all characters', () => {
+        return request
+            .get('/api/characters')
+            .then(({ body }) => {
+                assert.deepEqual(body, [character]);
+            });
+    });
 });
