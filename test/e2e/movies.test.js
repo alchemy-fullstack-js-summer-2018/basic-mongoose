@@ -33,15 +33,18 @@ describe.only('Movies API', () => {
         return request 
             .post('/api/movies')
             .send(data)
-            .then(({ body }) => 
-            {
-                movie = body;
-                console.log('movie', movie);
-            }
-            );
+            .then(({ body }) => movie = body);
     });
 
     it('saves a movie', () => {
         assert.isOk(movie._id);
+    });
+
+    it('returns movie by id GET', () => {
+        return request  
+            .get(`/api/games/${movie._id}`)
+            .then(({ body }) => {
+                assert.deepEqual(body, movie);
+            });
     });
 });
