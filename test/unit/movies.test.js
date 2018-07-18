@@ -25,6 +25,10 @@ describe('Movie model', () => {
             },
             rating: 5,
             isPixar: true,
+            languages: {
+                1: 'English',
+                2: 'Japanese'
+            },
             keywords: ['Japan', 'Ghibli', 'Pixar', 'pig']
         };
         const movie = new Movie(data);
@@ -37,11 +41,29 @@ describe('Movie model', () => {
 
     it('validates required fields', () => {
         const movie = new Movie({});
-        const errors = getErrors(movie.validateSync(), 2);
+        const errors = getErrors(movie.validateSync(), 4);
 
-        assert.equal(Object.keys(errors).length, 2);
+        assert.equal(Object.keys(errors).length, 4);
         assert.equal(errors.name.kind, 'required');
         assert.equal(errors.rating.kind, 'required');
+        assert.equal(errors['languages.1'].kind, 'required');
+        assert.equal(errors['languages.2'].kind, 'required');
+    });
+
+    it('has a min rating of 1', () => {
+        const movie = new Movie({
+            name: 'Tales of Earthsea',
+            rating: 0,
+            languages: {
+                1: 'English',
+                2: 'Japanese'
+            }
+        });
+
+        const errors = getErrors(movie.validateSync(), 1);
+
+        assert.equal(Object.keys(errors).length, 1);
+        assert.equal(errors.rating.kind, 'min');
     });
 
 });
