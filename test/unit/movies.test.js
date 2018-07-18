@@ -11,7 +11,14 @@ describe('Movie model', () => {
             director: 'Hayao Miyazaki',
             composer: 'Joe Hisashi',
             year: 2001,
-            characters: {}
+            voices: {
+                chihiro: 'Daveigh Chase',
+                haku: 'Jason Marsden',
+                yubaba: 'Suzanne'
+            },
+            rating: 5,
+            isPixar: true,
+            keywords: ['Japan', 'Ghibli', 'Pixar', 'pig']
         };
         const movie = new Movie(data);
 
