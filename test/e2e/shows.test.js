@@ -67,4 +67,14 @@ describe('TV Shows API', () => {
                 assert.deepEqual(body.firstAired, utopiaShow.firstAired);
             });
     });
+
+    it('updates a show by ID', () => {
+        utopiaShow.networkType = 'cable';
+        return request
+            .put(`/api/shows/${utopiaShow._id}`)
+            .send(utopiaShow)
+            .then(({ body }) => {
+                assert.deepEqual(body.networkType, utopiaShow.networkType);
+            });
+    });
 });
