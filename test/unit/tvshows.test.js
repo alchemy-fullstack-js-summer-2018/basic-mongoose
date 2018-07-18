@@ -20,12 +20,12 @@ describe('TV show model', () => {
             moreInfo: {
                 yearReleased: 2017,
                 creator: ['Nick Kroll', 'Andrew Goldberg', 'Jennifer Flackett', 'Mark Levin'],
-                availableOn: 'Netflix'
+                availableOn: 'Netflix',
+                rating: 5
             }
         };
 
         const show = new Show(data);
-
         const json = show.toJSON();
         delete json._id;
         assert.deepEqual(json, data);
@@ -37,6 +37,19 @@ describe('TV show model', () => {
         const errors = getErrors(show.validateSync(), 2);
         assert.equal(errors.name.kind, 'required');
         assert.equal(errors.genre.kind, 'required');
+
+    });
+
+    it('validates at least one season is available', () => {
+        const show = new Show({
+            name: 'Archer',
+            genre: 'Comedy',
+            numberOfSeasons: 0
+        });
+
+        const errors = getErrors(show.validateSync(), 1);
+        assert.equal(errors.numberOfSeasons.kind, 'min');
+        console.log(errors.numberOfSeasons.message);
 
     });
 });
