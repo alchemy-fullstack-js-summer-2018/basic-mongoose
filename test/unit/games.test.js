@@ -19,4 +19,14 @@ describe('Game model', () => {
         assert.isUndefined(game.validateSync());
     });
 
+    it('Validates required fields', () => {
+        const game = new Game({});
+        const validation = game.validateSync();
+        assert.isDefined(validation);
+
+        const errors = validation.errors;
+        assert.equal(Object.keys(errors).length, 3);
+        assert.equal(errors.Name.kind, 'required');
+    });
+
 });
