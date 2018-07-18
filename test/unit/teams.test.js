@@ -2,11 +2,11 @@ const chai = require('chai');
 const { assert } = chai;
 const Team = require('../../lib/models/team'); 
 
-const getErrors = (validation, numberExpected) => {
-    assert.isDefined(validation);
-    assert.equal(Object.keys(errors).length, numberExpected);
-    const errors = validation.errors;
-};
+// const getErrors = (validation, numberExpected) => {
+//     assert.isDefined(validation);
+//     assert.equal(Object.keys(errors).length, numberExpected);
+//     const errors = validation.errors;
+// };
 
 describe('Team model', () => {
     
@@ -41,7 +41,7 @@ describe('Team model', () => {
         // assert.equal(errors['location.state'].kind, 'required');
     });
 
-    it('roster is at least 1', () => {
+    it('roster is at least 12', () => {
         const team = new Team({
             name: 'Team',
             location: { state: 'OR' },
@@ -67,6 +67,17 @@ describe('Team model', () => {
         // const errors = getErrors(team.validateSync(), 1);
     });
 
+    it('limits stadium to square, oval or round', () => {
+        const team = new Team({
+            name: 'Team',
+            location: { state: 'OR' },
+            roster: 13,
+            stadium: 'rectangle'
+        });
+        const validation = team.validateSync();
+        const errors = validation.errors;
+        assert.equal(Object.keys(errors).length, 1);
 
-    
+        assert.equal(errors.stadium.kind, 'enum');
+    });
 });
