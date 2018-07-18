@@ -35,4 +35,12 @@ describe('Artists API', () => {
                 assert.deepEqual(body, [artist]);
             });
     });
+
+    it('gets one artist out of db', () => {
+        return request
+            .get(`/api/artists/${artist._id}`)
+            .then(({ body }) => {
+                assert.deepEqual(body, artist);
+            });
+    });
 });
