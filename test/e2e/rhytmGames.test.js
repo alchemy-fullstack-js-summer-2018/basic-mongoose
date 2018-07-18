@@ -56,7 +56,7 @@ describe('rhythm_games API', () => {
         assert.isOk(geometryDash._id);
     });
 
-    it('returns 404 on bad url',() => {
+    it('returns 404 on bad url', () => {
         return request
             .get('/no-rhythm')
             .then(res => {
