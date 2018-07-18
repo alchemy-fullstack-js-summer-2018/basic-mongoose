@@ -11,17 +11,26 @@ const getErrors = (validation, numberExpected) => {
 
 describe('Rude thing model', () => {
 
-    it 'validates a good model', () => {
+    it('validates a good model'), () => {
         const data = { 
             name: 'Donald Trump',
             human: true,
             age: 72,
             zodiac: 'Gemini',
-            traits: ['narcissistic', 'greedy', 'impulsive']
+            personality: {
+                traits: ['narcissistic', 'greedy', 'impulsive'],
+                rudeness: 10,
+                empathy: 0
+            },
+            profession: 'President'
+        };
+        const rudething = new Rudething(data);
+    
+        const json = rudething.toJSON();
+        delete json._id;
+        assert.deepEqual(json, data);
+        assert.isUndefined(rudething.validateSync());
+    };
+}); 
 
-
-
-        }
-    }
-})
 
