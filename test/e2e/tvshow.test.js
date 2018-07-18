@@ -2,7 +2,7 @@ const { assert } = require('chai');
 const request = require('./request');
 const { dropCollection } = require('./db');
 
-describe('Tv Show API', () => {
+describe('TV Show API', () => {
 
     beforeEach(() => dropCollection('shows'));
 
@@ -84,7 +84,7 @@ describe('Tv Show API', () => {
             });
     });
 
-    it('returns 404 if delete was unsuccessful', () => {
+    it('returns false if remove was unsuccessful', () => {
         return request
             .delete('/api/tvshows/5b4f7eff5e411bed072d5c6a')
             .then(result => {
