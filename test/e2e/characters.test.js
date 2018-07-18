@@ -52,6 +52,16 @@ describe('Companies API', () => {
             });
     });
 
+    it('updates a character', () => {
+        character.name = 'Not So Brave Sir Robin';
+        return request
+            .put(`/api/characters/${character._id}`)
+            .send(character)
+            .then(({ body }) => {
+                assert.deepEqual(body, character);
+            });
+    });
+
     it('deletes a character', () => {
         return request
             .del(`/api/characters/${character._id}`)
