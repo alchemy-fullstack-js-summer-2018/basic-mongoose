@@ -16,7 +16,8 @@ describe('Game model', () => {
             Name: 'Tekken 7',
             Origin: 'Japan',
             Console: ['PS4', 'Xbox'],
-            Revenue: 1       
+            Revenue: 1,
+            Philosophical: false       
         };
 
         const game = new Game(data);
@@ -73,5 +74,17 @@ describe('Game model', () => {
         assert.equal(Object.keys(errors).length, 1);
         assert.equal(errors.Rating.kind, 'enum');
     });
+
+    it('Deafults philosophical to true if not stated', () => {
+        const game = new Game({
+            Name: 'Bubsy',
+            Origin: 'USA',
+            Console: ['SNES', 'PC'],
+            Revenue:  20,
+            Rating: 'perfect'
+        });
+
+        assert.strictEqual(game.Philosophical, true);
+    });    
 
 });
