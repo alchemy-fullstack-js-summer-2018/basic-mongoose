@@ -14,7 +14,7 @@ describe('Rhythm game model', () => {
     it('validates good model', () => {
         const data = {
             name: 'Geometry Dash',
-            platform: 'iOS, Android, Win, Mac',
+            platform: ['iOS', 'Android', 'Win', 'Mac'],
             difficulty: 'hard',
             originCountry: { country: 'Sweden' },
             freeVersion: true,
@@ -34,15 +34,14 @@ describe('Rhythm game model', () => {
         const game = new RhythmGame({});
         const errors = getErrors(game.validateSync(), 3);
         assert.equal(errors.name.kind, 'required');
-        assert.equal(errors.platform.kind, 'required');
+        assert.equal(errors.platform.kind, 'user defined');
         assert.equal(errors['originCountry.country'].kind, 'required');
-        // console.log('***', errors);
     });
 
     it('rating is > 0', () => {
         const game = new RhythmGame({
             name: 'Piano Tiles 2',
-            platform: 'Android, iOS',
+            platform: ['Android', 'iOS'],
             originCountry: {
                 city: 'Beijing',
                 country: 'China'
@@ -57,7 +56,7 @@ describe('Rhythm game model', () => {
     it('rating is < 11', () => {
         const game = new RhythmGame({
             name: 'Dancing Line',
-            platform: 'Android, iOS',
+            platform: ['Android', 'iOS'],
             originCountry: {
                 city: 'Beijing',
                 country: 'China'
@@ -73,7 +72,7 @@ describe('Rhythm game model', () => {
         const game = new RhythmGame({
             name: 'Geometry Dash',
             platform: 'iOS, Android, Win, Mac',
-            difficulty: 'Supa Uruta Hado',
+            difficulty: 'Supa Urutora Hado',
             originCountry: { country: 'Sweden' },
             freeVersion: true,
             releaseYear: 2013,
