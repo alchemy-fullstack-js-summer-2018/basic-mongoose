@@ -24,6 +24,14 @@ describe('Artists API', () => {
             .then(({ body }) => weezer = body);
     });
 
+    it('returns 404 on a bad path', () => {
+        return request
+            .get('/api/nothere')
+            .then(res => {
+                assert.equal(res.status, 404);
+            });
+    });
+
     it('saves an artist', () => {
         assert.isOk(weezer._id);
     });
@@ -58,7 +66,15 @@ describe('Artists API', () => {
         return request
             .del(`/api/artists/${weezer._id}`)
             .then(({ body }) => {
-                assert.deepEqual(body, { removed: true });
+                assert.strictEqual(body.removed, true);
+            });
+    });
+
+    it('returns removed: false when the item doesnt exist', () => {
+        return request
+            .del('/api/artists/5b4f932cbbac922934298b5f')
+            .then(({ body }) => {
+                assert.strictEqual(body.removed, false);
             });
     });
 });
