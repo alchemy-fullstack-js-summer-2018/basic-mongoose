@@ -61,7 +61,17 @@ describe('Farms API', () => {
             .then(({ body }) => {
                 assert.deepEqual(body, farm);
             });
+    });
 
+    it('removes a farm by id', () => {
+        return request
+            .del(`/api/farms/${farm._id}`)
+            .then(() => {
+                return request.get('/api/farms');
+            })
+            .then(({ body }) => {
+                assert.deepEqual(body, []);
+            });
     });
 
 });
