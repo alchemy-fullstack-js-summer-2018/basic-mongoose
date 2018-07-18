@@ -23,6 +23,7 @@ describe('Movie model', () => {
                 haku: 'Jason Marsden',
                 yubaba: 'Suzanne'
             },
+            runtime: 'just right',
             rating: 5,
             isPixar: true,
             languages: {
@@ -59,11 +60,26 @@ describe('Movie model', () => {
                 2: 'Japanese'
             }
         });
-
         const errors = getErrors(movie.validateSync(), 1);
 
         assert.equal(Object.keys(errors).length, 1);
         assert.equal(errors.rating.kind, 'min');
+    });
+
+    it('restricts runtime to short, just right, or too long', () => {
+        const movie = new Movie({
+            name: 'Tale of Princess Kaguya',
+            runtime: 'kinda long',
+            rating: 3,
+            languages: {
+                1: 'English',
+                2: 'Japanese'
+            }
+        });
+        const errors = getErrors(movie.validateSync(), 1);
+
+        assert.equal(Object.keys(errors).length, 1);
+        assert.equal(errors.runtime.kind, 'enum');
     });
 
 });
