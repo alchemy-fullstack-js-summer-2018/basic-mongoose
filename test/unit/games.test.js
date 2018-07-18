@@ -14,7 +14,9 @@ describe('Game model', () => {
     it('Validates good model', () => {
         const data = {
             Name: 'Tekken 7',
-            Origin: 'Japan',
+            Origin: {
+                Country:'Japan',
+            },
             Console: ['PS4', 'Xbox'],
             Revenue: 1,
             Philosophical: false       
@@ -40,9 +42,12 @@ describe('Game model', () => {
     it('Revenue is at least $1 million', () => {
         const game = new Game({
             Name: ' Warframe',
-            Origin: 'Canada',
+            Origin: {
+                Country: 'Canada'
+            },
             Console: ['PS4', 'PC'],
-            Revenue: 0 
+            Revenue: 0,
+            Philosophical: false 
         });
 
         const errors = getErrors(game.validateSync(), 1);
@@ -52,9 +57,12 @@ describe('Game model', () => {
     it('Revenue is at most $6 million', () => {
         const game = new Game({
             Name: ' Spyro',
-            Origin: 'USA',
-            Console: ['PS4', 'PC'],
-            Revenue:  6 
+            Origin: {
+                Country: 'USA'
+            },
+            Console: ['PS1', 'PC'],
+            Revenue: 6,
+            Rating: 'perfect'
         });
 
         const errors = getErrors(game.validateSync(), 1);
@@ -64,10 +72,13 @@ describe('Game model', () => {
     it('Limits rating to good, great, perfect', () => {
         const game = new Game({
             Name: ' Splinter Cell',
-            Origin: 'USA',
-            Console: ['PS2', 'PC'],
+            Origin: {
+                Country: 'USA'
+            },
+            Console: ['PS2', 'Xbox'],
             Revenue:  1,
-            Rating: 'meh'
+            Rating: 'meh',
+            Philosophical: false 
         });
 
         const errors = getErrors(game.validateSync(), 1);
@@ -78,7 +89,9 @@ describe('Game model', () => {
     it('Deafults philosophical to true if not stated', () => {
         const game = new Game({
             Name: 'Bubsy',
-            Origin: 'USA',
+            Origin: {
+                Country: 'USA'
+            },
             Console: ['SNES', 'PC'],
             Revenue:  20,
             Rating: 'perfect'
