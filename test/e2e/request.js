@@ -1,16 +1,12 @@
-const connect = require('../../lib/connect');
-connect('mongodb://localhost:27017/games-demo');
-const mongoose = require('mongoose');
+const { createServer } = require('http');
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+chai.use(chaiHttp);
 
-after(() => {
-    return mongoose.connect.close();
-});
+const app = require('../../lib/app');
+const server = createServer(app);
+const request = chai.request(server).keepOpen();
 
-module.exports = {
-    dropCollection(name) {
-        return mongoose.connection.dropCollection(name)
-            .catch(err => {
-                if(err.codeName !== 'NamespaceNotFound') throw err;
-            });
-    }
-};
+after(done => server.close(done));
+
+module.exports = request;
