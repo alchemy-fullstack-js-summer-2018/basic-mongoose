@@ -75,7 +75,8 @@ describe.only('Movies API', () => {
         return request
             .get('/api/movies')
             .then(({ body }) => {
-                assert.deepEqual(body, [spiritedaway, laputa]);
+                assert.deepEqual(body[0].name, spiritedaway.name);
+                assert.deepEqual(body[1].name, laputa.name);
             });
     });
 
