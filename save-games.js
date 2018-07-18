@@ -17,3 +17,18 @@ const body = {
 Game.create(body)
     .catch(console.log)
     .then(() => mongoose.connection.close());
+
+Game.findById('5b4f78057889723c802ee940')
+    .lean()
+    .then(game => {
+        console.log(game);
+
+        return Game.find()
+            .lean();
+        // .select('Name Origin');
+    })
+    .then(games => {
+        console.log(games);
+    })
+    .catch(console.log)
+    .then(() => mongoose.connection.close());

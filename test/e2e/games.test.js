@@ -29,4 +29,12 @@ describe('Games API', () => {
         assert.isOk(game._id);
     });
 
+    it('Gets a game by Id', () => {
+        return request
+            .get(`/api/games/${game._id}`)
+            .then(({ body }) => {
+                assert.deepEqual(body, game);
+            });
+    });
+
 });
