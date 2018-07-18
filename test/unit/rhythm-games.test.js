@@ -29,4 +29,69 @@ describe('Rhythm game model', () => {
         assert.deepEqual(json, data);
         assert.isUndefined(game.validateSync());
     });
+
+    it('validates requires fields', () => {
+        const game = new RhythmGame({});
+        const errors = getErrors(game.validateSync(), 3);
+        assert.equal(errors.name.kind, 'required');
+        assert.equal(errors.platform.kind, 'required');
+        assert.equal(errors['originCountry.country'].kind, 'required');
+        // console.log('***', errors);
+    });
+
+    it('rating is > 0', () => {
+        const game = new RhythmGame({
+            name: 'Piano Tiles 2',
+            platform: 'Android, iOS',
+            originCountry: {
+                city: 'Beijing',
+                country: 'China'
+            },
+            rating: 0
+        });
+        const errors = getErrors(game.validateSync(), 1);
+        assert.equal(Object.keys(errors).length, 1);
+        assert.equal(errors.rating.kind, 'min');
+    });
+
+    it('rating is < 11', () => {
+        const game = new RhythmGame({
+            name: 'Dancing Line',
+            platform: 'Android, iOS',
+            originCountry: {
+                city: 'Beijing',
+                country: 'China'
+            },
+            rating: 11
+        });
+        const errors = getErrors(game.validateSync(), 1);
+        assert.equal(Object.keys(errors).length, 1);
+        assert.equal(errors.rating.kind, 'max');
+    });
+
+    it('limits choice of difficulty to easy, normal or hard', () => {
+        const game = new RhythmGame({
+            name: 'Geometry Dash',
+            platform: 'iOS, Android, Win, Mac',
+            difficulty: 'Supa Uruta Hado',
+            originCountry: { country: 'Sweden' },
+            freeVersion: true,
+            releaseYear: 2013,
+            rating: 10
+        });
+        const errors = getErrors(game.validateSync(), 1);
+        assert.equal(Object.keys(errors).length, 1);
+        assert.equal(errors.difficulty.kind, 'enum');
+    });
+
+    it('default freeVersion to false left empty', () => {
+        const game = new RhythmGame({
+            name: 'Beat Stomper',
+            platform: 'Android, iOS',
+            originCountry: { country: 'Taiwan' },
+            rating: 6
+        });
+        assert.strictEqual(game.freeVersion, false);
+    });
+    
 });
