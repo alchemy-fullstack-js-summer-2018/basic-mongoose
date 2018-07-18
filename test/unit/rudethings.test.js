@@ -2,14 +2,15 @@ const chai = require('chai');
 const { assert } = chai;
 const Rudething = require('../../lib/models/rudething');
 
-const getErrors = (validation, numberExpected) => {
-    assert.isDefined(validation);
-    const errors = validation.errors;
-    assert.equal(Object.keys(errors).length, numberExpected);
-    return errors;
-};
 
 describe('Rude thing model', () => {
+    
+    // const getErrors = (validation, numberExpected) => {
+    //     assert.isDefined(validation);
+    //     const errors = validation.errors;
+    //     assert.equal(Object.keys(errors).length, numberExpected);
+    //     return errors;
+    //};
 
     it('validates a good model'), () => {
         const data = { 
@@ -31,6 +32,8 @@ describe('Rude thing model', () => {
         assert.deepEqual(json, data);
         assert.isUndefined(rudething.validateSync());
     };
+
+  
 }); 
 
 
