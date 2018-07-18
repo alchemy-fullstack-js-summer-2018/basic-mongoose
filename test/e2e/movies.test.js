@@ -80,7 +80,7 @@ describe.only('Movies API', () => {
     });
 
     it('updates a movie on PUT', () => {
-        laputa.producer = 'Isao Takahata';
+        laputa.name = 'Castle in the Sky';
         return request
             .put(`/api/movies/${laputa._id}`)
             .send(laputa)
