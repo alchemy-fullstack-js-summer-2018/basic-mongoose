@@ -54,7 +54,6 @@ describe('Games API', () => {
                 return request.get('/api/games');
             })
             .then(({ body }) => {
-                console.log(body);
                 assert.deepEqual(body, []);
             });
     });
