@@ -92,4 +92,12 @@ describe('TV Shows API', () => {
                 assert.equal(body[1].firstAired, gameOfThronesShow.firstAired);
             });
     });
+
+    it('sends a 404 error on bad path', () => {
+        return request
+            .get('/bad/path')
+            .then(res => {
+                assert.equal(res.status, 404);
+            });
+    });
 });
