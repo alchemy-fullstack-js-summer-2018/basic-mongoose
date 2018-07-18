@@ -2,12 +2,12 @@ const chai = require('chai');
 const { assert } = chai;
 const Character = require('../../lib/models/character');
 
-// const getErrors = (validation, numberExpected) => {
-//     assert.isDefined(validation);
-//     const errors = validation.errors;
-//     assert.equal(Object.keys(errors).length, numberExpected);
-//     return errors;
-// };
+const getErrors = (validation, numberExpected) => {
+    assert.isDefined(validation);
+    const errors = validation.errors;
+    assert.equal(Object.keys(errors).length, numberExpected);
+    return errors;
+};
 
 describe('Character model', () => {
 
@@ -35,5 +35,14 @@ describe('Character model', () => {
         assert.deepEqual(json, data);
         assert.isUndefined(character.validateSync());
 
+    });
+
+    it('validates required fields', () => {
+        const character = new Character({});
+        const errors = getErrors(character.validateSync(), 3);
+        assert.equal(errors.name.kind, 'required');
+        assert.equal(errors.class.kind, 'required');
+        assert.equal(errors.description.kind, 'required');
+        
     });
 });
