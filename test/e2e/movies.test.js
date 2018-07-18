@@ -29,9 +29,19 @@ describe.only('Movies API', () => {
             },
             keywords: ['Japan', 'Ghibli', 'Pixar', 'pig']
         };
+
+        return request 
+            .post('/api/movies')
+            .send(data)
+            .then(({ body }) => 
+            {
+                movie = body;
+                console.log('movie', movie);
+            }
+            );
     });
 
-    it('saves a company', () => {
-
+    it('saves a movie', () => {
+        assert.isOk(movie._id);
     });
 });
