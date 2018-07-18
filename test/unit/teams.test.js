@@ -40,6 +40,18 @@ describe('Team model', () => {
         // assert.equal(errors.name.kind, 'required');
         // assert.equal(errors['location.state'].kind, 'required');
     });
+
+    it('roster is at least 1', () => {
+        const team = new Team({
+            name: 'Team',
+            location: { state: 'OR' },
+            roster: 0
+        });
+        const validation = team.validateSync();
+        const errors = validation.errors;
+        assert.equal(Object.keys(errors).length, 1);
+        assert.equal(errors.roster.kind, 'min');
+    });
     
     it('roster is at most 15', () => {
         const team = new Team({
@@ -54,5 +66,7 @@ describe('Team model', () => {
         assert.equal(errors.roster.kind, 'max');
         // const errors = getErrors(team.validateSync(), 1);
     });
+
+
     
 });
