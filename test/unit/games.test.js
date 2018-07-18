@@ -2,6 +2,13 @@ const chai = require('chai');
 const { assert } = chai;
 const Game = require('../../lib/models/game');
 
+const getErrors = (validation, numberExpected) => {
+    assert.isDefined(validation);
+    const errors = validation.errors;
+    assert.equal(Object.keys(errors).length, numberExpected);
+    return errors;
+};
+
 describe('Game model', () => {
 
     it('Validates good model', () => {
@@ -37,12 +44,20 @@ describe('Game model', () => {
             Revenue: 2  
         });
 
-        const validation = game.validateSync();
-        assert.isDefined(validation);
-
-        const errors = validation.errors;
-        assert.equal(Object.keys(errors).length, 1);
+        const errors = getErrors(game.validateSync(), 1);
         assert.equal(errors.Revenue.kind, 'min');
+    });
+
+    it('Revenue is at most $6 million', () => {
+        const game = new Game({
+            Name: ' Spyro',
+            Origin: 'USA',
+            Console: ['PS4', 'PC'],
+            Revenue:  6 
+        });
+
+        const errors = getErrors(game.validateSync(), 1);
+        assert.equal(errors.Revenue.kind, 'max');
     });
 
 });
