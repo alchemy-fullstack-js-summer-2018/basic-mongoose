@@ -27,4 +27,12 @@ describe('Artists API', () => {
     it('saves an artist', () => {
         assert.isOk(artist._id);
     });
+
+    it('gets all artists out of db', () => {
+        return request
+            .get('/api/artists')
+            .then(({ body }) => {
+                assert.deepEqual(body, [artist]);
+            });
+    });
 });
