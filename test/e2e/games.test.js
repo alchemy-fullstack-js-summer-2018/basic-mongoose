@@ -43,8 +43,19 @@ describe('Games API', () => {
             .put(`/api/games/${game._id}`)
             .send(game)
             .then(({ body }) => {
-                console.log(body);
                 assert.deepEqual(body, game);
+            });
+    });
+
+    it('It deletes a game', () => {
+        return request 
+            .delete(`/api/games/${game._id}`)
+            .then(() => {
+                return request.get('/api/games');
+            })
+            .then(({ body }) => {
+                console.log(body);
+                assert.deepEqual(body, []);
             });
     });
 

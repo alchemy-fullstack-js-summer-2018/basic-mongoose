@@ -44,3 +44,5 @@ Game.findByIdAndUpdate(
     .then(result => console.log(result))
     .catch(console.log)
     .then(() => mongoose.connection.close());
+
+Game.findByIdAndRemove();
