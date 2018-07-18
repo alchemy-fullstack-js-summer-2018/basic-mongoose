@@ -88,4 +88,15 @@ describe.only('Movies API', () => {
                 assert.deepEqual(body, laputa);
             });
     });
+
+    it('deletes a movie on DELETE', () => {
+        return request
+            .del(`/api/movies/${laputa._id}`)
+            .then(() => {
+                return request.get('/movies');
+            })
+            .then(({ body }) => {
+                assert.deepEqual(body, {});
+            });
+    });
 });
