@@ -52,4 +52,53 @@ describe('TV show model', () => {
         console.log(errors.numberOfSeasons.message);
 
     });
-});
+
+    it('validates rating is no less than 1', () => {
+        const show = new Show({
+            name: 'Big Mouth',
+            genre: 'Comedy',
+            moreInfo: {
+                rating: 0
+            }
+        });
+
+        const errors = getErrors(show.validateSync(), 1);
+        assert.equal(errors['moreInfo.rating'].kind, 'min');
+        console.log(errors['moreInfo.rating'].message);
+
+    });
+
+    it('validates rating is no more than 5', () => {
+        const show = new Show({
+            name: 'Big Mouth',
+            genre: 'Comedy',
+            moreInfo: {
+                rating: 6
+            }
+        });
+
+        const errors = getErrors(show.validateSync(), 1);
+        assert.equal(errors['moreInfo.rating'].kind, 'max');
+        console.log(errors['moreInfo.rating'].message);
+
+    });
+
+    it('limits genre to comedy, action, thriller, crime, sci-fi, drama, fantasy', () => {
+        const show = new Show({
+            name: 'Breaking Bad',
+            genre: 'Drama/Crime'
+        });
+
+        const errors = getErrors(show.validateSync(), 1);
+        assert.equal(errors.genre.kind, 'enum');
+    });
+
+    it('defaults Chuck Norris as a character if none specified', () => {
+        const show = new Show({
+            name: 'Stranger Things',
+            genre: 'Sci-Fi',
+        });
+
+        assert.deepEqual(show.characters, ['Chuck Norris']);
+    });
+}); 
