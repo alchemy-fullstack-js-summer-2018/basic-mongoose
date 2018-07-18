@@ -1,9 +1,9 @@
 const connect = require('../../lib/connect');
-connect('mongodb://localhost:27017/games-demo');
+connect('mongodb://localhost:27017/games_demo');
 const mongoose = require('mongoose');
 
 after(() => {
-    return mongoose.connect.close();
+    return mongoose.connection.close();
 });
 
 module.exports = {

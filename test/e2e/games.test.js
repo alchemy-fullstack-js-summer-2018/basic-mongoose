@@ -10,19 +10,19 @@ describe('Games API', () => {
 
     beforeEach(() => {
         const data = {
-            Name: 'Metal Gear Solid',
+            Name: ' Warframe',
             Origin: {
-                Country:'Japan',
+                Country: 'Canada'
             },
             Console: ['PS4', 'PC'],
-            Revenue: 4,
-            Philosophical: false       
+            Revenue: 1,
+            Philosophical: false 
         };
 
         return request
             .post('/api/games')
             .send(data)
-            .then(({ body }) => body);
+            .then(({ body }) => game = body);
     });
 
     it('Saves a game', () => {
