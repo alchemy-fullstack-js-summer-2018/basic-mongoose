@@ -4,7 +4,8 @@
 Stay tuned!
 
 ## Developer
-Requires Node v10 or later.
+Requires:
+* Node v10 or later.
 
 ### How to get started
 * Fork repository, clone locally, navigate to repository directory,
