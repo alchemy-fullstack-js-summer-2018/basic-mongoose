@@ -41,7 +41,6 @@ describe('Farms API', () => {
         return request
             .get(`/api/farms/${farm._id}`)
             .then(({ body }) => {
-                console.log('body is ', body);
                 assert.deepEqual(body, farm);
             });
     });
@@ -52,6 +51,17 @@ describe('Farms API', () => {
             .then(res => {
                 assert.equal(res.status, 404);
             });
+    });
+
+    it('updates a farm by id', () => {
+        farm.rating = 5;
+        return request
+            .put(`/api/farms/${farm._id}`)
+            .send(farm)
+            .then(({ body }) => {
+                assert.deepEqual(body, farm);
+            });
+
     });
 
 });
