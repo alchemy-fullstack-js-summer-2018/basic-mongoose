@@ -59,9 +59,6 @@ describe('Teams API', () => {
         return request
             .delete(`/api/teams/${team._id}`)
             
-            // .then(() => {
-            //     return request.get(`/api/teams/${team._id}`);
-            // })
             .then(() => {
                 return request.get('/api/teams');
             })
