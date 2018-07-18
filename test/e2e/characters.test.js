@@ -44,6 +44,14 @@ describe('Companies API', () => {
             });
     });
 
+    it('gets a character based on a query', () => {
+        return request
+            .get('/api/characters?class=Fighter')
+            .then(({ body }) => {
+                assert.deepEqual(body, [character]);
+            });
+    });
+
     it('deletes a character', () => {
         return request
             .del(`/api/characters/${character._id}`)
