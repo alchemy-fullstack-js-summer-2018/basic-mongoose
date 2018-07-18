@@ -64,4 +64,15 @@ describe('Artist model', () => {
         assert.equal(Object.keys(errors).length, 1);
         assert.equal(errors.style.kind, 'enum');
     });
+
+    it('defaults stillActive to true', () => {
+        const artist = new Artist({
+            name: 'A Tribe Called Quest',
+            genre: 'Hip-Hop',
+            famousAlbums: ['The Low End Theory'],
+            numAlbums: 5
+        });
+
+        assert.strictEqual(artist.stillActive, true);
+    });
 });
