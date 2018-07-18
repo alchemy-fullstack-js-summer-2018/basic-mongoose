@@ -3,6 +3,13 @@ const chai = require('chai');
 const { assert } = chai;
 const Movie = require('../../lib/models/movie');
 
+const getErrors = (validation, numberExpected) => {
+    assert.isDefined(validation);
+    const errors = validation.errors;
+    assert.equal(Object.keys(errors).length, numberExpected);
+    return errors;
+};
+
 describe('Movie model', () => {
 
     it('validates good model', () => {
@@ -27,5 +34,9 @@ describe('Movie model', () => {
         assert.deepEqual(json, data);
         assert.isUndefined(movie.validateSync());
     });
+
+    it('', () => {
+        
+    })
 
 });
