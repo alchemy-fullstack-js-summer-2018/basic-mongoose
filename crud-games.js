@@ -24,11 +24,23 @@ Game.findById('5b4f78057889723c802ee940')
         console.log(game);
 
         return Game.find()
-            .lean();
-        // .select('Name Origin');
+            .lean()
+            .select('Name Origin');
     })
     .then(games => {
         console.log(games);
     })
+    .catch(console.log)
+    .then(() => mongoose.connection.close());
+
+Game.findByIdAndUpdate(
+    '5b4f78057889723c802ee940',
+    { Revenue: 4 },
+    {
+        new: true,
+        runValidators: true
+    }
+)
+    .then(result => console.log(result))
     .catch(console.log)
     .then(() => mongoose.connection.close());

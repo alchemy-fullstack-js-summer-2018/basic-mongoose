@@ -37,4 +37,15 @@ describe('Games API', () => {
             });
     });
 
+    it('Updates a game', () => {
+        game.Revenue = 4;
+        return request
+            .put(`/api/games/${game._id}`)
+            .send(game)
+            .then(({ body }) => {
+                console.log(body);
+                assert.deepEqual(body, game);
+            });
+    });
+
 });
