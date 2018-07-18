@@ -48,12 +48,13 @@ describe('Character model', () => {
 
     it('Checks that Hit Points are a minimum of 4', () => {
         const character = new Character({
-            name: 'Tim the Exnchanter',
+            name: 'Tim the Enchanter',
             class: 'Magic User',
-            hp: 3
+            hp: 3,
+            description: 'A very silly person. Big fan of shrubbery. Somewhat dangerous to surrounding landscape.'
         });
 
         const errors = getErrors(character.validateSync(), 1);
-        assert.equal(errors.rating.kind, 'min');
+        assert.equal(errors.hp.kind, 'min');
     });
 });
