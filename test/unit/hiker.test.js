@@ -36,16 +36,44 @@ describe('Hiker Model', () => {
 
     it('validates long trails hiked', () => {
         const hiker = new Hiker({
-            trailName: 'Wired',
-            longTrail: 'PNT',
-            milesHiked: 7900,
-            tripleCrown: true
+            trailName: 'Dirty Avocado',
+            longTrail: 'TRT',
+            milesHiked: 2654,
+            tripleCrown: false
         });
         
         const errors = getErrors(hiker.validateSync(), 1);
         assert.equal(Object.keys(errors).length, 1);
         assert.equal(errors.longTrail.kind, 'enum');
 
+    });
+
+    it('checks minimum mileage to match at least one trail', () => {
+        const hiker = new Hiker({
+            trailName: 'Wired',
+            longTrail: 'PCT, CDT, AT',
+            milesHiked: 7900,
+            tripleCrown: true
+        });
+
+        assert.ok(hiker.milesHiked > 2184);
+        hiker.milesHiked = 900;
+        const errors = getErrors(hiker.validateSync(), 1);
+        assert.equal(errors.milesHiked.kind, 'min');
+    });
+
+    it('checks maximum mileage to match Triple Crown distance', () => {
+        const hiker = new Hiker({
+            trailName: 'Wired',
+            longTrail: 'PCT, CDT, AT',
+            milesHiked: 7900,
+            tripleCrown: true
+        });
+
+        assert.ok(hiker.milesHiked < 7901);
+        hiker.milesHiked = 14905;
+        const errors = getErrors(hiker.validateSync(), 1);
+        assert.equal(errors.milesHiked.kind, 'max');
     });
 
 
