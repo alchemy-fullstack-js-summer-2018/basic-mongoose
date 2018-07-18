@@ -56,7 +56,7 @@ describe('rhythm_games API', () => {
         assert.isOk(geometryDash._id);
     });
 
-    it('returns 404 on bad url, courtesy of express.js', () => {
+    it('returns 404 on bad url',() => {
         return request
             .get('/no-rhythm')
             .then(res => {
@@ -103,6 +103,14 @@ describe('rhythm_games API', () => {
             .delete('/api/rhythm_games/5b4f7a85a1499652c71fc405')
             .then(res => {
                 assert.isFalse(res.body.removed);
+            });
+    });
+
+    it('returns 404 on bad id', () => {
+        return request
+            .get('/api/rhythm_games/5b4f7a85a1499652c71fc405')
+            .then(res => {
+                assert.equal(res.status, 404);
             });
     });
 
