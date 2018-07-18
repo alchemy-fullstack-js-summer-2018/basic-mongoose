@@ -3,7 +3,7 @@ connect('mongodb://localhost:27017/music');
 const mongoose = require('mongoose');
 
 after(() => {
-    return mongoose.connect.close();
+    return mongoose.connection.close();
 });
 
 module.exports = {
