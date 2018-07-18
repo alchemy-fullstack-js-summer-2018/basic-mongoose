@@ -11,7 +11,10 @@ describe('Companies API', () => {
     beforeEach(() => {
         const data = {
             name: 'Brave Sir Robin',
-            class: 'Paladin',
+            class: 'Fighter',
+            race: 'Human',
+            hp: 6,
+            description: 'So NOT brave. Riding into battle, well actually away from battle, behind his green-and-white checkered chicken crest.'
 
         };
 
