@@ -43,4 +43,14 @@ describe('Artists API', () => {
                 assert.deepEqual(body, artist);
             });
     });
+
+    it('updates and artist in the databse', () => {
+        artist.numAlbums = 6;
+        return request
+            .put(`/api/artists/${artist._id}`)
+            .send(artist)
+            .then(({ body }) => {
+                assert.deepEqual(body, artist);
+            });
+    });
 });
