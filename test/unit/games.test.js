@@ -16,7 +16,7 @@ describe('Game model', () => {
             Name: 'Tekken 7',
             Origin: 'Japan',
             Console: ['PS4', 'Xbox'],
-            Revenue: 1.6       
+            Revenue: 1       
         };
 
         const game = new Game(data);
@@ -58,6 +58,20 @@ describe('Game model', () => {
 
         const errors = getErrors(game.validateSync(), 1);
         assert.equal(errors.Revenue.kind, 'max');
+    });
+
+    it('Limits rating to good, great, perfect', () => {
+        const game = new Game({
+            Name: ' Splinter Cell',
+            Origin: 'USA',
+            Console: ['PS2', 'PC'],
+            Revenue:  1,
+            Rating: 'meh'
+        });
+
+        const errors = getErrors(game.validateSync(), 1);
+        assert.equal(Object.keys(errors).length, 1);
+        assert.equal(errors.Rating.kind, 'enum');
     });
 
 });
