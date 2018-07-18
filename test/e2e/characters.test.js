@@ -35,4 +35,12 @@ describe('Companies API', () => {
                 assert.deepEqual(body, [character]);
             });
     });
+
+    it('gets one character by Id', () => {
+        return request
+            .get(`/api/characters/${character._id}`)
+            .then(({ body }) => {
+                assert.deepEqual(body, character);
+            });
+    });
 });
