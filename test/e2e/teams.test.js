@@ -57,12 +57,12 @@ describe('Teams API', () => {
 
     // it('deletes a team', () => {
     //     return request
-    //         .del(`/api/teams/${team._id}`)
+    //         .delete(`/api/teams/${team._id}`)
     //         // .then(res => {
     //         //     assert.equal(res.status, 200);
     //         // })
     //         .then(() => {
-    //             return request.get(`api/teams/${team._id}`);
+    //             return request.get(`/api/teams/${team._id}`);
     //         })
     //         // .then(() => {
     //         //     return request.get('/api/teams');
