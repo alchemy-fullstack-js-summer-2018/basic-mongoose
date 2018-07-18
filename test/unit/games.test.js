@@ -29,4 +29,20 @@ describe('Game model', () => {
         assert.equal(errors.Name.kind, 'required');
     });
 
+    it('Revenue is at least $1 million', () => {
+        const game = new Game({
+            Name: ' Warframe',
+            Origin: 'Canada',
+            Console: ['PS4', 'PC'],
+            Revenue: 2  
+        });
+
+        const validation = game.validateSync();
+        assert.isDefined(validation);
+
+        const errors = validation.errors;
+        assert.equal(Object.keys(errors).length, 1);
+        assert.equal(errors.Revenue.kind, 'min');
+    });
+
 });
