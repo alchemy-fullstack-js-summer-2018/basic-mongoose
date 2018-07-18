@@ -24,4 +24,12 @@ describe('Teams API', () => {
     it('saves a team', () => {
         assert.isOk(team._id);
     });
+
+    it('gets all teams', () => {
+        return request
+            .get('/api/teams')
+            .then(({ body }) => {
+                assert.deepEqual(body, [team]);
+            });
+    });
 });
