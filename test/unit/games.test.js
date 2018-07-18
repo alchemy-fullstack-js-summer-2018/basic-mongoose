@@ -42,7 +42,7 @@ describe('Game model', () => {
             Name: ' Warframe',
             Origin: 'Canada',
             Console: ['PS4', 'PC'],
-            Revenue: 2  
+            Revenue: 0 
         });
 
         const errors = getErrors(game.validateSync(), 1);
