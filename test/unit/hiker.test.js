@@ -76,6 +76,18 @@ describe('Hiker Model', () => {
         assert.equal(errors.milesHiked.kind, 'max');
     });
 
+    it('defaults Triple Crown to false if not entered', () => {
+        const hiker = new Hiker({
+            trailName: 'Pitch',
+            longTrail: 'PCT',
+            milesHiked: 2654,
+            
+        });
+
+        assert.strictEqual(hiker.tripleCrown, false);
+
+    });
+
 
 
     
