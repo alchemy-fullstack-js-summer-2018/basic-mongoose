@@ -40,11 +40,13 @@ describe.only('Movies API', () => {
         assert.isOk(movie._id);
     });
 
-    it('returns movie by id GET', () => {
+    it('returns movie by id on GET', () => {
         return request  
-            .get(`/api/games/${movie._id}`)
+            .get(`/api/movies/${movie._id}`)
             .then(({ body }) => {
                 assert.deepEqual(body, movie);
             });
     });
+
+    
 });
