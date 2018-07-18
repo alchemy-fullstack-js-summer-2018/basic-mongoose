@@ -56,5 +56,28 @@ describe('Farm model', () => {
         assert.equal(errors.size.kind, 'enum');
     });
 
+    it('rating is at least 1', () => {
+        const farm = new Farm({
+            name: 'Rising River Farm',
+            address: { state: 'WA' },
+            rating: 0
+        });
+
+        const errors = getErrors(farm.validateSync(), 1);
+        assert.equal(Object.keys(errors).length, 1);
+        assert.equal(errors.rating.kind, 'min');
+    });
+
+    it('rating is at most 5', () => {
+        const farm = new Farm({
+            name: 'Rising River Farm',
+            address: { state: 'WA' },
+            rating: 6
+        });
+
+        const errors = getErrors(farm.validateSync(), 1);
+        assert.equal(errors.rating.kind, 'max');
+    });
+
 
 });
