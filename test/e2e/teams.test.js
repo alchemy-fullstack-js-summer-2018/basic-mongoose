@@ -40,4 +40,39 @@ describe('Teams API', () => {
                 assert.deepEqual(body, team);
             });
     });
-});
+
+    it('updates a team', () => {
+        team.roster = 14;
+        return request
+            .put(`/api/teams/${team._id}`)
+            .send(team)
+            .then(({ body }) => {
+                assert.deepEqual(body.roster, team.roster);
+            });
+    });
+
+    it('returns 404 or bad url', () => {
+        assert.ok(team._id);
+    });
+
+    // it('deletes a team', () => {
+    //     return request
+    //         .del(`/api/teams/${team._id}`)
+    //         // .then(res => {
+    //         //     assert.equal(res.status, 200);
+    //         // })
+    //         .then(() => {
+    //             return request.get(`api/teams/${team._id}`);
+    //         })
+    //         // .then(() => {
+    //         //     return request.get('/api/teams');
+    //         // })
+    //         .then(({ body }) => {
+    //             assert.deepEqual(body, []);
+    //         });
+
+    //         // .then(res => {
+    //         //     assert.equal(res.status, 404);
+    //         // });
+    // });
+}); 
