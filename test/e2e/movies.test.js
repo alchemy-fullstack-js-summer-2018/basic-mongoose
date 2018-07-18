@@ -78,4 +78,14 @@ describe.only('Movies API', () => {
                 assert.deepEqual(body, [spiritedaway, laputa]);
             });
     });
+
+    it('updates a movie on PUT', () => {
+        laputa.producer = 'Isao Takahata';
+        return request
+            .put(`/api/movies/${laputa._id}`)
+            .send(laputa)
+            .then(({ body }) => {
+                assert.deepEqual(body, laputa);
+            });
+    });
 });
