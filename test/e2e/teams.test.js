@@ -32,4 +32,12 @@ describe('Teams API', () => {
                 assert.deepEqual(body, [team]);
             });
     });
+
+    it('gets a team by id', () => {
+        return request
+            .get(`/api/teams/${team._id}`)
+            .then(({ body }) => {
+                assert.deepEqual(body, team);
+            });
+    });
 });
