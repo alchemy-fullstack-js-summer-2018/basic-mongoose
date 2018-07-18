@@ -35,8 +35,13 @@ describe('Movie model', () => {
         assert.isUndefined(movie.validateSync());
     });
 
-    it('', () => {
-        
-    })
+    it('validates required fields', () => {
+        const movie = new Movie({});
+        const errors = getErrors(movie.validateSync(), 2);
+
+        assert.equal(Object.keys(errors).length, 2);
+        assert.equal(errors.name.kind, 'required');
+        assert.equal(errors.rating.kind, 'required');
+    });
 
 });
