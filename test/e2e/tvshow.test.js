@@ -7,6 +7,7 @@ describe('Tv Show API', () => {
     beforeEach(() => dropCollection('shows'));
 
     let strangerThings;
+    let bigMouth;
 
     function save(show) {
         return request
@@ -41,7 +42,6 @@ describe('Tv Show API', () => {
     });
 
     it('binge watches all the shows', () => {
-        let bigMouth;
         return save({
             name: 'Big Mouth',
             genre: 'Comedy',
@@ -56,6 +56,39 @@ describe('Tv Show API', () => {
                     .then(({ body }) => {
                         assert.deepEqual(body, [strangerThings, bigMouth]);
                     });
+            });
+    });
+
+    it('updates a tv show', () => {
+        strangerThings.characters = ['Barb'];
+
+        return request
+            .put(`/api/tvshows/${strangerThings._id}`)
+            .send(strangerThings)
+            .then(({ body }) => {
+                assert.deepEqual(body, strangerThings);
+            });
+    });
+
+    it('deletes a show, sadly', () => {
+        return request
+            .delete(`/api/tvshows/${strangerThings._id}`)
+            .then(result => {
+                assert.deepEqual(result.body, { removed: true });
+            })
+            .then(() => {
+                return request.get('/api/tvshows');
+            })
+            .then(({ body }) => {
+                assert.deepEqual(body, []);
+            });
+    });
+
+    it('returns 404 if delete was unsuccessful', () => {
+        return request
+            .delete('/api/tvshows/5b4f7eff5e411bed072d5c6a')
+            .then(result => {
+                assert.deepEqual(result.body, { removed: false });
             });
     });
 });
