@@ -31,4 +31,12 @@ describe('TV Show model', () => {
         assert.deepEqual(json, data);
         assert.isUndefined(show.validateSync());
     });
+
+    it('validates required fields', () => {
+        const show = new Show({});
+        const errors = getErrors(show.validateSync(), 3);
+        assert.equal(errors.name.kind, 'required');
+        assert.equal(errors.firstAired.kind, 'required');
+        assert.equal(errors.networkType.kind, 'required');
+    });
 });
