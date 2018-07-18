@@ -57,4 +57,18 @@ describe('Character model', () => {
         const errors = getErrors(character.validateSync(), 1);
         assert.equal(errors.hp.kind, 'min');
     });
+
+    it('Checks to make sure the class is included in allowed values', () => {
+        const character = new Character({
+            name: 'Polly the Witch',
+            class: 'Witch',
+            hp: 10,
+            description: 'Not a witch. Well, maybe a little witchy. OK to be fair, she is totally a witch.'
+        });
+
+        const errors = getErrors(character.validateSync(), 1);
+        assert.equal(Object.keys(errors).length, 1);
+        assert.equal(errors.class.kind, 'enum');
+
+    });
 });
