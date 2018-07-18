@@ -43,4 +43,13 @@ describe('Companies API', () => {
                 assert.deepEqual(body, character);
             });
     });
+
+    it('deletes a character', () => {
+        return request
+            .del(`/api/characters/${character._id}`)
+            .then(res => {
+                assert.equal(res.status, 200);
+            });
+    });
+
 });
