@@ -37,7 +37,7 @@ describe('Games API', () => {
             });
     });
 
-    it('Updates a game', () => {
+    it('Updates a game by Id', () => {
         game.Revenue = 4;
         return request
             .put(`/api/games/${game._id}`)
@@ -47,14 +47,19 @@ describe('Games API', () => {
             });
     });
 
-    it('It deletes a game', () => {
+    it('It deletes a game by ID', () => {
         return request 
             .delete(`/api/games/${game._id}`)
-            .then(() => {
-                return request.get('/api/games');
-            })
             .then(({ body }) => {
-                assert.deepEqual(body, []);
+                assert.isTrue(body.removed);
+            });
+    });
+
+    it('Returns rmoved: false on non-existent object', () => {
+        return request
+            .delete('/api/games/5b4f8bfe8990cdeff5998047')
+            .then(({ body }) => {
+                assert.isFalse(body.removed);
             });
     });
 
