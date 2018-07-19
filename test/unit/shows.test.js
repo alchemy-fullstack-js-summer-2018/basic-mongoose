@@ -39,4 +39,28 @@ describe('TV Show model', () => {
         assert.equal(errors.firstAired.kind, 'required');
         assert.equal(errors.networkType.kind, 'required');
     });
+
+    it('checks that the minimum number of seasons is 1', () => {
+        const show = new Show({
+            name: 'Game of Thrones',
+            firstAired: '2011',
+            networkType: 'cable',
+            seasons: 0,
+        });
+        const errors = getErrors(show.validateSync(), 1);
+        assert.equal(Object.keys(errors).length, 1); 
+        assert.equal(errors.seasons.kind, 'min'); 
+    });
+
+    it('checks that the network type is either cable or broadcast', () => {
+        const show = new Show({
+            name: 'Game of Thrones',
+            firstAired: '2011',
+            networkType: 'streaming',
+            seasons: 7,
+        });
+        const errors = getErrors(show.validateSync(), 1);
+        assert.equal(Object.keys(errors).length, 1); 
+        assert.equal(errors.networkType.kind, 'enum'); 
+    });
 });
