@@ -41,6 +41,14 @@ describe('Teams API', () => {
             });
     });
 
+    it('gets a team by query', () => {
+        return request
+            .get('/api/teams/?roster=13')
+            .then(({ body }) => {
+                assert.deepEqual(body, [team]);
+            });
+    });
+
     it('updates a team', () => {
         team.roster = 14;
         return request
@@ -49,12 +57,6 @@ describe('Teams API', () => {
             .then(({ body }) => {
                 assert.deepEqual(body.roster, team.roster);
             });
-    });
-
-    it('returns 404 or bad url', () => {
-        return request
-
-
     });
 
     it('deletes a team', () => {
