@@ -41,6 +41,14 @@ describe('Teams API', () => {
             });
     });
 
+    it('gets a team by query', () => {
+        return request
+            .get('/api/teams/?roster=13')
+            .then(({ body }) => {
+                assert.deepEqual(body, [team]);
+            });
+    });
+
     it('updates a team', () => {
         team.roster = 14;
         return request
@@ -49,10 +57,6 @@ describe('Teams API', () => {
             .then(({ body }) => {
                 assert.deepEqual(body.roster, team.roster);
             });
-    });
-
-    it('returns 404 or bad url', () => {
-        assert.ok(team._id);
     });
 
     it('deletes a team', () => {
@@ -66,4 +70,13 @@ describe('Teams API', () => {
                 assert.deepEqual(body, []);
             });
     });
+    it('returns false if delete was unsuccessful', () => {
+        console.log('***body***', team);
+        return request
+            .delete('/api/teams/5b50ac161e81450c3dd1161c')
+            .then(result => {
+                assert.deepEqual(result.body, { removed: false });
+            });
+    });
+
 }); 
