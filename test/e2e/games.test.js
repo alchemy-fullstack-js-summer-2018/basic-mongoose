@@ -47,7 +47,7 @@ describe('Games API', () => {
             });
     });
 
-    it('It deletes a game by ID', () => {
+    it('It deletes a game by Id', () => {
         return request 
             .delete(`/api/games/${game._id}`)
             .then(({ body }) => {
@@ -55,7 +55,7 @@ describe('Games API', () => {
             });
     });
 
-    it('Returns rmoved: false on non-existent object', () => {
+    it('Returns removed: false on non-existent object', () => {
         return request
             .delete('/api/games/5b4f8bfe8990cdeff5998047')
             .then(({ body }) => {
