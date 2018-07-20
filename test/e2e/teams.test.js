@@ -52,7 +52,9 @@ describe('Teams API', () => {
     });
 
     it('returns 404 or bad url', () => {
-        assert.ok(team._id);
+        return request
+
+
     });
 
     it('deletes a team', () => {
@@ -66,4 +68,13 @@ describe('Teams API', () => {
                 assert.deepEqual(body, []);
             });
     });
+    it('returns false if delete was unsuccessful', () => {
+        console.log('***body***', team);
+        return request
+            .delete('/api/teams/5b50ac161e81450c3dd1161c')
+            .then(result => {
+                assert.deepEqual(result.body, { removed: false });
+            });
+    });
+
 }); 
