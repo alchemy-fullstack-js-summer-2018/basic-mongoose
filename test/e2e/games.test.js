@@ -7,10 +7,11 @@ describe('Games API', () => {
     beforeEach(() => dropCollection('games'));
 
     let game;
+    let game2;
 
     beforeEach(() => {
         const data = {
-            Name: ' Warframe',
+            Name: 'Warframe',
             Origin: {
                 Country: 'Canada'
             },
@@ -25,8 +26,35 @@ describe('Games API', () => {
             .then(({ body }) => game = body);
     });
 
+    beforeEach(() => {
+        const data = {
+            Name: 'Legend of Dragoon',
+            Origin: {
+                Country: 'Japan'
+            },
+            Console: ['PS1', 'PC'],
+            Revenue: 2,
+        };
+
+        return request
+            .post('/api/games')
+            .send(data)
+            .then(({ body }) => game2 = body);
+    });
+
     it('Saves a game', () => {
         assert.isOk(game._id);
+        assert.isOk(game2._id);
+    });
+
+    it('Gets a list of games', () => {
+        return request
+            .get('/api/games')
+            .then(({ body }) => {
+                console.log(body);
+                assert.equal(body[0].Name, ['Warframe']);
+                assert.equal(body[1].Name, ['Legend of Dragoon']);
+            });
     });
 
     it('Gets a game by Id', () => {
