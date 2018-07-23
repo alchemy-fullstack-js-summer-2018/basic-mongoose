@@ -86,7 +86,7 @@ describe('Game model', () => {
         assert.equal(errors.Rating.kind, 'enum');
     });
 
-    it('Deafults philosophical to true if not stated', () => {
+    it('Defaults philosophical to true if not stated', () => {
         const game = new Game({
             Name: 'Bubsy',
             Origin: {
