@@ -1,7 +1,7 @@
 # Basic Mongoose
 
 ## Project Description
-Stay tuned!
+An end-to-end (e2e) tested HTTP REST API created with Express and Mongoose for a mock movies database. 
 
 ## Developer
 Requires:
@@ -13,10 +13,19 @@ Requires:
 * To test, run `npm test`. 
 
 ### How to use API
+* Create your own .env files with the .env.example files provided in the root of the project and the test folder. Enter the correct MongoDB URI. Port is currently set to 3000, you may update it to your port of choice.
 * Connect to server with `npm run start`.
-* Enter `http://localhost:3000` in your browser.
+* Enter `http://localhost:3000/api/movies` in your browser.
 
-More to come...
+The following methods are used for the paths listed:
+
+Method | Path
+---|---
+`GET` |     `/movies`
+`GET` |     `/movies/:id`
+`POST` |     `/movies`
+`PUT` |     `/movies/:id`
+`DELETE` |     `/movies/:id` 
 
 ## Contributor
 [Mariah Adams](https://github.com/MariahAdams)
