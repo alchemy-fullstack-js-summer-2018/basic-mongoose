@@ -80,6 +80,10 @@ describe.only('Movies API', () => {
             });
     });
 
+    it('GET works with query', () => {
+
+    });
+
     it('updates a movie on PUT', () => {
         laputa.name = 'Castle in the Sky';
         return request
@@ -95,6 +99,10 @@ describe.only('Movies API', () => {
             .del(`/api/movies/${laputa._id}`)
             .then(({ body }) => {
                 assert.deepEqual(body, { removed: true });
+                return request.get('/movies');
+            })
+            .then(({ body }) => {
+                assert.deepEqual(body, {});
             });
     });
 });
