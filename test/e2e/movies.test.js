@@ -81,7 +81,11 @@ describe.only('Movies API', () => {
     });
 
     it('GET works with query', () => {
-
+        return request
+            .get('/api/movies?name=Spirited%20Away')
+            .then(({ body }) => {
+                assert.deepEqual(body[0].name, spiritedaway.name);
+            });
     });
 
     it('updates a movie on PUT', () => {
