@@ -2,4 +2,3 @@ node_modules
 .DS_Store
 .vs*
 .env
-+MONGODB_URI=mongodb://localhost:27017/testing
